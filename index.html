@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista dźwięków - djakthiru.github.io</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .sound-item { margin-bottom: 20px; }
-        button { margin-left: 10px; }
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .sound-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        button {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -16,10 +27,10 @@
 
     <script>
         const sounds = [
-            'dzwiek1.mp3',
-            'dzwiek2.mp3',
-            'przyklad3.wav',
-            // Dodaj kolejne pliki ręcznie
+            'shadowban.mp3',
+            'santacruz.mp3',
+            'przyklad3.mp3'
+            //kolejne nazwy plików z katalogu głównego
         ];
 
         const baseUrl = window.location.origin + '/';
@@ -31,22 +42,22 @@
             const item = document.createElement('div');
             item.className = 'sound-item';
 
+            const title = document.createElement('div');
+            title.textContent = file;
+
             const audio = document.createElement('audio');
             audio.controls = true;
             audio.src = fullUrl;
 
-            const link = document.createElement('span');
-            link.textContent = file;
-
             const copyButton = document.createElement('button');
-            copyButton.textContent = 'Kopiuj';
+            copyButton.textContent = 'Kopiuj link';
             copyButton.onclick = () => {
                 navigator.clipboard.writeText(fullUrl)
                     .then(() => alert(`Skopiowano: ${fullUrl}`))
                     .catch(err => console.error('Błąd kopiowania:', err));
             };
 
-            item.appendChild(link);
+            item.appendChild(title);
             item.appendChild(audio);
             item.appendChild(copyButton);
 
