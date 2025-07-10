@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dźwięki - djakthiru.github.io</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .sound-item { margin-bottom: 20px; }
+        button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Lista dźwięków</h1>
+    <div id="sound-list"></div>
+
+    <script>
+        const sounds = [
+            'dzwiek1.mp3',
+            'dzwiek2.mp3',
+            'przyklad3.wav',
+            // Dodaj kolejne pliki ręcznie
+        ];
+
+        const baseUrl = window.location.origin + '/Dźwięki/';
+        const listContainer = document.getElementById('sound-list');
+
+        sounds.forEach(file => {
+            const fullUrl = baseUrl + file;
+
+            const item = document.createElement('div');
+            item.className = 'sound-item';
+
+            const audio = document.createElement('audio');
+            audio.controls = true;
+            audio.src = fullUrl;
+
+            const link = document.createElement('span');
+            link.textContent = file;
+
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Kopiuj';
+            copyButton.onclick = () => {
+                navigator.clipboard.writeText(fullUrl)
+                    .then(() => alert(`Skopiowano: ${fullUrl}`))
+                    .catch(err => console.error('Błąd kopiowania:', err));
+            };
+
+            item.appendChild(link);
+            item.appendChild(audio);
+            item.appendChild(copyButton);
+
+            listContainer.appendChild(item);
+        });
+    </script>
+</body>
+</html>
