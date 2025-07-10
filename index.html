@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dźwięki - djakthiru.github.io</title>
+    <title>Lista dźwięków - djakthiru.github.io</title>
     <style>
         :root {
             --color-primary: #4CAF50;
-            --color-primary-hover: #43a047;
-            --color-bg-gradient: linear-gradient(to right, #f0f0f0, #e0e0e0);
+            --color-primary-hover: #45a049;
+            --color-bg: #f9f9f9;
             --color-text: #333;
             --color-border: #ddd;
         }
 
         body {
-            margin: 0;
+            background: var(--color-bg);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--color-bg-gradient);
             color: var(--color-text);
+            margin: 0;
             padding: 20px;
             max-width: 800px;
             margin-left: auto;
@@ -33,28 +33,31 @@
         .sound-item {
             background: white;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-radius: 12px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
         }
 
-        .sound-title {
+        .sound-item span {
             font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 10px;
+            text-align: center;
+            display: block;
+            width: 100%;
         }
 
         button {
             background: var(--color-primary);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 8px;
             font-size: 14px;
             cursor: pointer;
             transition: background 0.2s ease;
-            margin-top: 10px;
         }
 
         button:hover {
@@ -63,7 +66,12 @@
 
         audio {
             width: 100%;
-            max-width: 400px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -76,7 +84,7 @@
             'przyklad1.mp3',
             'przyklad2.mp3',
             'przyklad3.mp3'
-            // Dodaj tutaj więcej plików
+            // Dodaj tu kolejne nazwy plików z katalogu głównego
         ];
 
         const baseUrl = window.location.origin + '/';
@@ -88,8 +96,7 @@
             const item = document.createElement('div');
             item.className = 'sound-item';
 
-            const title = document.createElement('div');
-            title.className = 'sound-title';
+            const title = document.createElement('span');
             title.textContent = file;
 
             const audio = document.createElement('audio');
