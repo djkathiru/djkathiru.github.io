@@ -3,34 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista dźwięków - djakthiru.github.io</title>
+    <title>Dźwięki – djakthiru.github.io</title>
     <style>
         body {
-            font-family: sans-serif;
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
         }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
         .sound-item {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
         }
-        button {
-            margin-top: 5px;
+
+        .sound-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .copy-button {
+            align-self: flex-start;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 119, 255, 0.2);
+        }
+
+        .copy-button:hover {
+            background-color: #005fd1;
+            transform: translateY(-1px);
+        }
+
+        .copy-button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .copy-button {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Lista dźwięków</h1>
-    <div id="sound-list"></div>
+    <h1>Dźwięki do odsłuchania</h1>
+    <div class="container" id="sound-list"></div>
 
     <script>
         const sounds = [
             'shadowban.mp3',
             'santacruz.mp3',
             'przyklad3.mp3'
-            //kolejne nazwy plików z katalogu głównego
+            // Dodaj więcej nazw plików tutaj
         ];
 
         const baseUrl = window.location.origin + '/';
@@ -43,6 +106,7 @@
             item.className = 'sound-item';
 
             const title = document.createElement('div');
+            title.className = 'sound-title';
             title.textContent = file;
 
             const audio = document.createElement('audio');
@@ -50,11 +114,15 @@
             audio.src = fullUrl;
 
             const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
             copyButton.textContent = 'Kopiuj link';
             copyButton.onclick = () => {
                 navigator.clipboard.writeText(fullUrl)
-                    .then(() => alert(`Skopiowano: ${fullUrl}`))
-                    .catch(err => console.error('Błąd kopiowania:', err));
+                    .then(() => {
+                        copyButton.textContent = 'Skopiowano!';
+                        setTimeout(() => copyButton.textContent = 'Kopiuj link', 1500);
+                    })
+                    .catch(err => alert('Błąd kopiowania: ' + err));
             };
 
             item.appendChild(title);
